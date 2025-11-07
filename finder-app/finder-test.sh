@@ -49,11 +49,11 @@ fi
 # MODIFICATIONS START HERE
 # ----------------------------------------------------------
 
-echo "Cleaning old build artifacts..."
-make clean
+# echo "Cleaning old build artifacts..."
+# make clean
 
-echo "Compiling writer application (native build)..."
-make
+# echo "Compiling writer application (native build)..."
+# make
 
 if [ ! -f "./writer" ]; then
     echo "Error: writer binary not found after build!"
