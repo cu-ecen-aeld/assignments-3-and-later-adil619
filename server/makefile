@@ -1,23 +1,17 @@
-# Simple Makefile that supports cross-compilation via CROSS_COMPILE variable
-# Usage:
-# make -> builds aesdsocket with default compiler
-# make CROSS_COMPILE=arm-linux-gnueabihf- -> builds with cross-compiler prefix
+CC = $(CROSS_COMPILE)gcc
+CFLAGS = -Wall -Wextra -Werror -g -std=gnu11
+TARGET = aesdsocket
+OBJS = aesdsocket.o
 
-CROSS_COMPILE ?=
-CC := $(CROSS_COMPILE)gcc
-CFLAGS := -Wall -Wextra -g -std=gnu11
-LDFLAGS :=
-TARGET := aesdsocket
-OUTDIR := .
+.PHONY: all clean
 
-.PHONY: all default clean
+all: $(TARGET)
 
-all: $(OUTDIR)/$(TARGET)
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
 
-default: all
-
-$(OUTDIR)/$(TARGET): aesdsocket.c
-	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+aesdsocket.o: aesdsocket.c
+	$(CC) $(CFLAGS) -c aesdsocket.c
 
 clean:
-	rm -f $(OUTDIR)/$(TARGET)
+	rm -f $(TARGET) $(OBJS)
